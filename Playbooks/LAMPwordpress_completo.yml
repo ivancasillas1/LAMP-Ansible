@@ -1,1 +1,8 @@
+- name: Instalación de MariaDB y configuración
+  hosts: mariadb
+  become: yes
+  become_method: sudo
+  roles:
+    - ins_mariadb
 
+  
