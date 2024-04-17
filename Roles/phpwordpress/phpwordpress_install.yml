@@ -51,6 +51,14 @@
     owner: apache
     group: apache
     mode: '0644'
+# Importar archivo wordpress.conf
+- name: Importar archivo wordpress.conf(proxy)
+  template:
+          src: /etc/ansible/recursos/wordpress/wordpress.conf
+          dest: /etc/httpd/conf.d/wordpress.conf
+          owner: root
+          group: root
+          mode: '0644'
 # Reiniciar Servicio Apache Web Server
 - name: Reiniciar Apache Web Server
   service:
