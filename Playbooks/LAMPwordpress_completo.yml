@@ -12,3 +12,9 @@
   roles:
     - ins_apache
 
+- name: Instalación de PHP y Wordpress
+  hosts: Apache
+  become: yes
+  become_method: sudo
+  roles:
+    - ins_php
