@@ -1,0 +1,71 @@
+- name: Actualizar caché paquetes
+  yum:
+    name: '*'
+    state: latest
+    update_cache: true
+# Instalar Paqueter necesarios
+- name: Instalar paquetes requeridos
+  yum:
+    name:
+      - php
+      - httpd
+      - php-cli
+      - php-fpm
+      - php-mysqlnd
+      - php-zip
+      - php-devel
+      - php-gd
+      - php-mcrypt
+      - php-mbstring
+      - php-curl
+      - php-xml
+      - php-pear
+      - php-bcmath
+    state: latest
+    # Reiniciar modulo php-fpm
+- name: Reiniciar modulo php-fpm
+  service:
+    name: php-fpm
+    state: restarted
+  when: ansible_facts['services']['php-fpm'] is definded
+# Abrir puerto firewall para http
+- name: Abrir puerto para servicio http
+  firewalld:
+    service: http
+    premanent: true
+    state: enabled
+# Copiar ficheros wordpress para instalación
+- name: Copiar archivos Wordpress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /var/html/
+    remote_src: yes
+    owner: apache
+    group: apache
+    mode: 0755'
+# Establecer configuración wordpress
+- name: Establecer configuración wordprss
+ template:
+    src: /etc/ansible/recursos/wordpress/wp-config.php
+    dest: /var/www/html/wordpress/wp_config.php
+    owner: apache
+    group: apache
+    mode: '0644'
+# Reiniciar Servicio Apache Web Server
+- name: Reiniciar Apache Web Server
+  service:
+    name: httpd
+    state: restarted
+# Deshabilitar módulo SELinux
+- name: Deshabilitar SELinux module
+  template:
+    src: /etc/ansible/recursos/config
+    dest: /etc/selinux/config
+    owner: root
+    group: root
+    mode: '0644'
+# Reiniciar servidor
+- name: Reiniciar servidor
+  reboot:
+    reboot_timeout: 60
+    post_reboot_delay: 30
