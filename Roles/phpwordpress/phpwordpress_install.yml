@@ -27,22 +27,22 @@
   service:
     name: php-fpm
     state: restarted
-  when: ansible_facts['services']['php-fpm'] is definded
+  when: ansible_facts['services']['php-fpm'] is defined
 # Abrir puerto firewall para http
 - name: Abrir puerto para servicio http
   firewalld:
     service: http
-    premanent: true
+    permanent: true
     state: enabled
 # Copiar ficheros wordpress para instalación
 - name: Copiar archivos Wordpress
   unarchive:
     src: https://wordpress.org/latest.tar.gz
-    dest: /var/html/
+    dest: /var/www/html/
     remote_src: yes
     owner: apache
     group: apache
-    mode: 0755'
+    mode: '0755'
 # Establecer configuración wordpress
 - name: Establecer configuración wordprss
  template:
@@ -59,7 +59,7 @@
 # Deshabilitar módulo SELinux
 - name: Deshabilitar SELinux module
   template:
-    src: /etc/ansible/recursos/config
+    src: /etc/ansible/recursos/selinux/config
     dest: /etc/selinux/config
     owner: root
     group: root
