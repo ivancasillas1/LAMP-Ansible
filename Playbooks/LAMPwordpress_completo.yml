@@ -5,4 +5,10 @@
   roles:
     - ins_mariadb
 
-  
+  - name: Instalación de Apache y configuración
+  hosts: Apache
+  become: yes
+  become_method: sudo
+  roles:
+    - ins_apache
+
