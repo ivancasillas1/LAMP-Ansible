@@ -3,6 +3,7 @@
     name: '*'
     state: latest
     update_cache: true
+    
 # Instalar Paqueter necesarios
 - name: Instalar paquetes requeridos
   yum:
@@ -22,18 +23,21 @@
       - php-pear
       - php-bcmath
     state: latest
-    # Reiniciar modulo php-fpm
+    
+# Reiniciar modulo php-fpm
 - name: Reiniciar modulo php-fpm
   service:
     name: php-fpm
     state: restarted
   when: ansible_facts['services']['php-fpm'] is defined
+  
 # Abrir puerto firewall para http
 - name: Abrir puerto para servicio http
   firewalld:
     service: http
     permanent: true
     state: enabled
+    
 # Copiar ficheros wordpress para instalación
 - name: Copiar archivos Wordpress
   unarchive:
@@ -43,6 +47,7 @@
     owner: apache
     group: apache
     mode: '0755'
+    
 # Establecer configuración wordpress
 - name: Establecer configuración wordprss
  template:
@@ -51,6 +56,7 @@
     owner: apache
     group: apache
     mode: '0644'
+    
 # Importar archivo wordpress.conf
 - name: Importar archivo wordpress.conf(proxy)
   template:
@@ -59,11 +65,13 @@
           owner: root
           group: root
           mode: '0644'
+          
 # Reiniciar Servicio Apache Web Server
 - name: Reiniciar Apache Web Server
   service:
     name: httpd
     state: restarted
+    
 # Deshabilitar módulo SELinux
 - name: Deshabilitar SELinux module
   template:
@@ -72,6 +80,7 @@
     owner: root
     group: root
     mode: '0644'
+    
 # Reiniciar servidor
 - name: Reiniciar servidor
   reboot:
