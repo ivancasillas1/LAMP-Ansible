@@ -50,7 +50,7 @@
     
 # Establecer configuración wordpress
 - name: Establecer configuración wordprss
- template:
+  template:
     src: /etc/ansible/recursos/wordpress/wp-config.php
     dest: /var/www/html/wordpress/wp_config.php
     owner: apache
