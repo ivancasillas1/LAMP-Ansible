@@ -3,23 +3,27 @@
   yum:
     name: httpd
     state: latest
+    
 # Iniciar servicio Apache
 - name: Servicio httpd
   service:
     name: httpd
     state: started
     enabled: true
+    
 # Abrir puertos del firewall
 - name: Abrir puertos en firewall
   firewalld:
     service: http
     permanent: true
     state: enabled
+    
 # Reiniciar firewall
 - name: Reiniciar firewall y cargar cambios
   service:
     name: firewalld
     state: reloaded
+    
 # Reiniciar Apache
 - name: Reiniciar Apache
   service:
