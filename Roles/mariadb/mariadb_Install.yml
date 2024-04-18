@@ -64,7 +64,7 @@
 - name: Crear usuario para base de datos de wordpress
   mysql_user:
     login_user: root
-     login_password: Viewnext
+    login_password: Viewnext
     name: vagrant
     password: Viewnext
     priv: 'wordpress.*:ALL,GRANT'
