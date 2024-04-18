@@ -52,7 +52,7 @@
 - name: Establecer configuración wordprss
   template:
     src: /etc/ansible/recursos/wordpress/wp-config.php
-    dest: /var/www/html/wordpress/wp_config.php
+    dest: /var/www/html/wordpress/wp-config.php
     owner: apache
     group: apache
     mode: '0644'
