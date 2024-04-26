@@ -7,7 +7,7 @@
 # Fecha y hora de la copia de seguridad
 - name: Obtener fecha y hora actual
   set_fact:
-    tUPDATE wp_options SET option_value='http://192.168.10.60' WHERE option_name='siteurl' OR option_name='home';imestamp: "{{ ansible_date_time.date }}_{{ ansible_date_time.time }}"
+    timestamp: "{{ ansible_date_time.date }}_{{ ansible_date_time.time }}"
 # Realizar la copia de seguridad
 - name: Realizar copia de seguridad
   mysql_db:
